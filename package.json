@@ -1,0 +1,11 @@
+{
+  "name": "nodejs-assessment",
+  "version": "1.0.0",
+  "description": "node.js assessment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wai kit ho",
+  "license": "ISC"
+}
