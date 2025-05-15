@@ -32,10 +32,19 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+// before saving, mongoose middleware can help to encrypt password
 UserSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(saltRounds);
   this.password = await bcrypt.hash(this.password, saltRounds);
   next();
 });
+
+// compare password
+UserSchema.methods.comparePassword = async function (password) {
+  const match = await bcrypt.compare(password, this.password);
+  return match;
+};
+
+// JWT
 
 module.exports = mongoose.model("User", UserSchema);

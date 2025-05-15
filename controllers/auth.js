@@ -1,19 +1,43 @@
-const express = require("express");
 const { StatusCodes } = require("http-status-codes");
+const { ForbiddenError, BadRequestError } = require("../errors/index");
 const User = require("../models/User");
-// WIP
+
 const register = async (req, res) => {
-  const registeredUser = await User.create({ ...req.body });
-  const { displayusername, userid } = registeredUser;
-  console.log(registeredUser);
-  res
-    .status(StatusCodes.OK)
-    .send({ displayusername: displayusername, userid: userid });
+  const { username, displayusername, password } = req.body;
+  const registeredUser = await User.create({
+    username,
+    displayusername,
+    password,
+  });
+  res.status(StatusCodes.OK).json({
+    displayusername: registeredUser.displayusername,
+    userid: registeredUser.userid,
+  });
 };
 
-// not complete
 const login = async (req, res) => {
-  res.send("<h1>Login page</h1>");
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new BadRequestError("Please provide username and password");
+  }
+  const user = await User.findOne({ username });
+  if (!user) {
+    throw new ForbiddenError("Invalid username or password.");
+  }
+
+  // check password
+  const match = await user.comparePassword(password);
+  if (!match) {
+    throw new ForbiddenError("Invalid username or password.");
+  }
+
+  // generate token
+
+  res.status(StatusCodes.OK).json({
+    token: "token",
+    displayusername: user.displayusername,
+    userid: user.userid,
+  });
 };
 
 // not complete

@@ -6,8 +6,8 @@ const app = express();
 const connectDatabase = require("./config/database");
 // routes
 const authRoutes = require("./routes/auth");
-
 // middleware
+const errorHandlerMiddleware = require("./middleware/errorHandler");
 
 app.use(express.json());
 app.use(cors());
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", authRoutes);
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
