@@ -45,6 +45,4 @@ UserSchema.methods.comparePassword = async function (password) {
   return match;
 };
 
-// JWT
-
 module.exports = mongoose.model("User", UserSchema);
