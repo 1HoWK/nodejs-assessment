@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { ForbiddenError, BadRequestError } = require("../errors/index");
+const { generateToken, verifyToken } = require("../utils/jwt");
 const User = require("../models/User");
 
 const register = async (req, res) => {
@@ -31,10 +32,11 @@ const login = async (req, res) => {
     throw new ForbiddenError("Invalid username or password.");
   }
 
-  // generate token
-
   res.status(StatusCodes.OK).json({
-    token: "token",
+    token: generateToken({
+      userid: user.userid,
+      displayusername: user.displayusername,
+    }),
     displayusername: user.displayusername,
     userid: user.userid,
   });

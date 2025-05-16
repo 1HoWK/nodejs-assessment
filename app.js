@@ -6,8 +6,10 @@ const app = express();
 const connectDatabase = require("./config/database");
 // routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 // middleware
 const errorHandlerMiddleware = require("./middleware/errorHandler");
+const authenticationMiddleware = require("./middleware/authentication");
 
 app.use(express.json());
 app.use(cors());
@@ -20,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", authRoutes);
+app.use("/api", authenticationMiddleware, userRoutes);
 app.use(errorHandlerMiddleware);
 
 const start = async () => {
@@ -30,5 +33,4 @@ const start = async () => {
     console.log(error);
   }
 };
-
 start();
