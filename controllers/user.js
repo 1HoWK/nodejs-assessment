@@ -12,14 +12,36 @@ const getProfile = async (req, res) => {
   console.log(req.user);
   const user = await User.findOne({ userid: req.user.userid });
   if (!user) {
-    // not found
     throw new ForbiddenError("User not found");
   }
   const { username, displayusername, userid } = user;
-  res.status(StatusCodes.OK).json({ username, displayusername, userid });
+  res.status(StatusCodes.OK).json({
+    username,
+    displayusername,
+    userid,
+  });
 };
 
-const updateProfile = async (req, res) => {};
+const updateProfile = async (req, res) => {
+  const {
+    body: { displayusername, timestamp },
+    user: { userid },
+  } = req;
+  // const { displayusername, timestamp } = req.body;
+  if (displayusername === "") {
+    throw new BadRequestError("displayusername cannot be blank");
+  }
+  // findOneAndUpdate(filter, update, options)
+  const user = await User.findOneAndUpdate(
+    { userid: userid },
+    { displayusername: displayusername },
+    { runValidators: true }
+  );
+  if (!user) {
+    throw new ForbiddenError("User not found");
+  }
+  res.status(StatusCodes.OK).send();
+};
 
 module.exports = {
   getProfile,
