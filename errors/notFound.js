@@ -1,12 +1,12 @@
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("./custom");
 
-// 403 Forbidden
-class ForbiddenError extends CustomError {
+// 404 Not Found
+class NotFoundError extends CustomError {
   constructor(message) {
     super(message);
-    this.statusCode = StatusCodes.FORBIDDEN;
+    this.statusCode = StatusCodes.NOT_FOUND;
   }
 }
 
-module.exports = ForbiddenError;
+module.exports = NotFoundError;

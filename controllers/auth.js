@@ -1,5 +1,10 @@
 const { StatusCodes } = require("http-status-codes");
-const { ForbiddenError, BadRequestError } = require("../errors/index");
+const {
+  ForbiddenError,
+  BadRequestError,
+  UnauthorizedError,
+  NotFoundError,
+} = require("../errors/index");
 const { generateToken, verifyToken } = require("../utils/jwt");
 const User = require("../models/User");
 
