@@ -15,6 +15,11 @@ const register = async (req, res) => {
     displayusername,
     password,
   });
+  console.log(
+    `[${new Date().toISOString()}] [INFO] User ${
+      registeredUser.username
+    } with userid : ${registeredUser.userid} has registered successfully`
+  );
   res.status(StatusCodes.OK).json({
     displayusername: registeredUser.displayusername,
     userid: registeredUser.userid,
@@ -36,10 +41,16 @@ const login = async (req, res) => {
     throw new ForbiddenError("Invalid username or password.");
   }
 
+  console.log(
+    `[${new Date().toISOString()}] [INFO] User ${user.username} with userid : ${
+      user.userid
+    } has logged in successfully`
+  );
+
   res.status(StatusCodes.OK).json({
     token: generateToken({
       userid: user.userid,
-      displayusername: user.displayusername,
+      username: user.username,
     }),
     displayusername: user.displayusername,
     userid: user.userid,
@@ -47,6 +58,11 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
+  console.log(
+    `[${new Date().toISOString()}] [INFO] User ${
+      req.user.username
+    } with userid : ${req.user.userid} has logged out successfully`
+  );
   res.status(200).send();
 };
 

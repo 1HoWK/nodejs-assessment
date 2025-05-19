@@ -10,7 +10,7 @@ const carRoutes = require("./routes/cars");
 // middleware
 const errorHandlerMiddleware = require("./middleware/errorHandler");
 const authenticationMiddleware = require("./middleware/authentication");
-
+// utils
 const app = express();
 
 app.use(express.json());
@@ -32,7 +32,12 @@ app.use(errorHandlerMiddleware);
 const start = async () => {
   try {
     await connectDatabase(mongo_uri);
-    app.listen(port, () => console.log(`Server is running on port ${port}...`));
+    const dateTime = new Date().toISOString();
+    app.listen(port, () =>
+      console.log(
+        `[${new Date().toISOString()}] [INFO] Server is running on port ${port}...`
+      )
+    );
   } catch (error) {
     console.log(error);
   }

@@ -8,12 +8,16 @@ const {
 const User = require("../models/User");
 
 const getProfile = async (req, res) => {
-  console.log(req.user);
   const user = await User.findOne({ userid: req.user.userid });
   if (!user) {
     throw new ForbiddenError("User not found");
   }
   const { username, displayusername, userid } = user;
+  console.log(
+    `[${new Date().toISOString()}] [INFO] User ${username} with userid : ${
+      user.userid
+    } ${req.method} ${req.originalUrl} successfully`
+  );
   res.status(StatusCodes.OK).json({
     username,
     displayusername,
@@ -39,6 +43,11 @@ const updateProfile = async (req, res) => {
   if (!user) {
     throw new ForbiddenError("User not found");
   }
+  console.log(
+    `[${new Date().toISOString()}] [INFO] User ${
+      user.username
+    }'s profile has updated successfully`
+  );
   res.status(StatusCodes.OK).send();
 };
 

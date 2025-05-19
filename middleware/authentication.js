@@ -19,7 +19,7 @@ const authentication = async (req, res, next) => {
     // console.log(payload);
     req.user = {
       userid: payload.userid,
-      displayusername: payload.displayusername,
+      username: payload.username,
     };
     next();
   } catch (error) {

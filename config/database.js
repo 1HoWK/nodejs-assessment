@@ -6,7 +6,11 @@ const connectDatabase = (url) => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => console.log("MongoDB has connected successfully"));
+    .then(() =>
+      console.log(
+        `[${new Date().toISOString()}] [INFO] MongoDB has connected successfully`
+      )
+    );
 };
 
 module.exports = connectDatabase;
