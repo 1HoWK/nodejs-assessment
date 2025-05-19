@@ -6,6 +6,7 @@ const connectDatabase = require("./config/database");
 // routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const carRoutes = require("./routes/cars");
 // middleware
 const errorHandlerMiddleware = require("./middleware/errorHandler");
 const authenticationMiddleware = require("./middleware/authentication");
@@ -24,6 +25,8 @@ app.get("/", (req, res) => {
 
 app.use("/api", authRoutes);
 app.use("/api", authenticationMiddleware, userRoutes);
+app.use("/api", authenticationMiddleware, carRoutes);
+
 app.use(errorHandlerMiddleware);
 
 const start = async () => {
