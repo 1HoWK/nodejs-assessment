@@ -5,7 +5,6 @@ const {
   UnauthorizedError,
   NotFoundError,
 } = require("../errors/index");
-const { generateToken, verifyToken } = require("../utils/jwt");
 const User = require("../models/User");
 
 const getProfile = async (req, res) => {

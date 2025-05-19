@@ -8,15 +8,15 @@ const { verifyToken } = require("../utils/jwt");
 
 const authentication = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
-  console.log(authorizationHeader);
+  // console.log(authorizationHeader);
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
     throw new UnauthorizedError("Authentication failed");
   }
   const token = authorizationHeader.split(" ")[1];
-  console.log(token);
+  // console.log(token);
   try {
     const payload = verifyToken(token);
-    console.log(payload);
+    // console.log(payload);
     req.user = {
       userid: payload.userid,
       displayusername: payload.displayusername,
