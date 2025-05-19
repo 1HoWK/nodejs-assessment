@@ -31,7 +31,6 @@ const login = async (req, res) => {
     throw new ForbiddenError("Invalid username or password.");
   }
 
-  // check password
   const match = await user.comparePassword(password);
   if (!match) {
     throw new ForbiddenError("Invalid username or password.");
@@ -47,9 +46,8 @@ const login = async (req, res) => {
   });
 };
 
-// not complete
 const logout = async (req, res) => {
-  res.send("<h1>Login page</h1>");
+  res.status(200).send();
 };
 
 module.exports = {
