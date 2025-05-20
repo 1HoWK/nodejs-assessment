@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("express-async-errors");
 const express = require("express");
 const cors = require("cors");
 // config
@@ -10,6 +11,7 @@ const carRoutes = require("./routes/cars");
 // middleware
 const errorHandlerMiddleware = require("./middleware/errorHandler");
 const authenticationMiddleware = require("./middleware/authentication");
+const requestHandlerMiddleware = require("./middleware/requestHandler");
 // utils
 const app = express();
 
@@ -22,6 +24,8 @@ const mongo_uri = process.env.MONGO_URI;
 app.get("/", (req, res) => {
   res.send("<h1>Building NodeJS assessment!</h1>");
 });
+
+app.use(requestHandlerMiddleware);
 
 app.use("/api", authRoutes);
 app.use("/api", authenticationMiddleware, userRoutes);

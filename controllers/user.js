@@ -14,9 +14,9 @@ const getProfile = async (req, res) => {
   }
   const { username, displayusername, userid } = user;
   console.log(
-    `[${new Date().toISOString()}] [INFO] User ${username} with userid : ${
-      user.userid
-    } ${req.method} ${req.originalUrl} successfully`
+    `[${new Date().toISOString()}] [INFO] ${req.method} ${
+      req.originalUrl
+    } from user ${username}`
   );
   res.status(StatusCodes.OK).json({
     username,
