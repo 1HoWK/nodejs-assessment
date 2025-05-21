@@ -16,9 +16,16 @@ const register = async (req, res) => {
     password,
   });
   console.log(
-    `[${new Date().toISOString()}] [INFO] User ${
-      registeredUser.username
-    } with userid : ${registeredUser.userid} has registered successfully`
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
+      req.originalUrl
+    } - Response: ${JSON.stringify(
+      {
+        displayusername: registeredUser.displayusername,
+        userid: registeredUser.userid,
+      },
+      null,
+      null
+    )}`
   );
   res.status(StatusCodes.OK).json({
     displayusername: registeredUser.displayusername,
@@ -42,9 +49,17 @@ const login = async (req, res) => {
   }
 
   console.log(
-    `[${new Date().toISOString()}] [INFO] User ${user.username} with userid : ${
-      user.userid
-    } has logged in successfully`
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
+      req.originalUrl
+    } - Response: ${JSON.stringify(
+      {
+        token: "*****",
+        displayusername: user.displayusername,
+        userid: user.userid,
+      },
+      null,
+      null
+    )}`
   );
 
   res.status(StatusCodes.OK).json({
@@ -59,9 +74,11 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   console.log(
-    `[${new Date().toISOString()}] [INFO] User ${
-      req.user.username
-    } with userid : ${req.user.userid} has logged out successfully`
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
+      req.originalUrl
+    } - Response: User ${req.user.username} with userid : ${
+      req.user.userid
+    } has logged out successfully`
   );
   res.status(200).send();
 };

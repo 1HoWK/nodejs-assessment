@@ -19,9 +19,9 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     error.statusCode = StatusCodes.BAD_REQUEST;
   }
   console.log(
-    `[${new Date().toISOString()}] [ERROR] ${error.statusCode} on ${
-      req.method
-    } ${req.originalUrl} - ${error.msg}`
+    `[${new Date().toISOString()}] [ERROR] ${error.statusCode} ${req.method} ${
+      req.originalUrl
+    } - Response: ${JSON.stringify({ errors: error.msg }, null, null)}`
   );
   return res.status(error.statusCode).json({
     errors: error.msg,

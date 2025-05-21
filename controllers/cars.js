@@ -46,9 +46,16 @@ const getCars = async (req, res) => {
     throw new NotFoundError("No cars");
   }
   console.log(
-    `[${new Date().toISOString()}] [INFO] ${req.method} ${
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
       req.originalUrl
-    } from user ${req.user.username} successfully`
+    } - Response: ${JSON.stringify(
+      {
+        list: cars,
+        totalcount: cars.length,
+      },
+      null,
+      null
+    )}`
   );
   res.status(StatusCodes.OK).json({ list: cars, totalcount: cars.length });
 };

@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 const mongo_uri = process.env.MONGO_URI;
 
 app.get("/", (req, res) => {
-  res.send("<h1>Building NodeJS assessment!</h1>");
+  res.send("<h1>NodeJS training/assessment!</h1>");
 });
 
 app.use(requestHandlerMiddleware);
@@ -36,7 +36,6 @@ app.use(errorHandlerMiddleware);
 const start = async () => {
   try {
     await connectDatabase(mongo_uri);
-    const dateTime = new Date().toISOString();
     app.listen(port, () =>
       console.log(
         `[${new Date().toISOString()}] [INFO] Server is running on port ${port}...`

@@ -14,9 +14,17 @@ const getProfile = async (req, res) => {
   }
   const { username, displayusername, userid } = user;
   console.log(
-    `[${new Date().toISOString()}] [INFO] ${req.method} ${
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
       req.originalUrl
-    } from user ${username}`
+    } - Response: ${JSON.stringify(
+      {
+        username,
+        displayusername,
+        userid,
+      },
+      null,
+      null
+    )}`
   );
   res.status(StatusCodes.OK).json({
     username,
@@ -44,9 +52,9 @@ const updateProfile = async (req, res) => {
     throw new ForbiddenError("User not found");
   }
   console.log(
-    `[${new Date().toISOString()}] [INFO] User ${
-      user.username
-    }'s profile has updated successfully`
+    `[${new Date().toISOString()}] [INFO] ${StatusCodes.OK} ${req.method} ${
+      req.originalUrl
+    } - Response: User ${user.username}'s profile has updated successfully`
   );
   res.status(StatusCodes.OK).send();
 };
